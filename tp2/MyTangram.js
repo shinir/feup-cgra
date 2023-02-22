@@ -34,8 +34,41 @@ export class MyTangram extends CGFobject {
         //this.scene.rotate((Math.PI / 4),0,0,1);
         this.scene.multMatrix(diamone_rotate);
         this.diamond.display();
+        this.scene.popMatrix();
+
         this.scene.pushMatrix();
-       
+        this.scene.translate(0,Math.sqrt(2) / 2,0);
+        this.triangleSmall.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(Math.sqrt(2), Math.sqrt(2) + Math.sqrt(2) / 2 + 1, 0);
+        this.scene.rotate(Math.PI/4,0,0,1);
+        this.triangleBig.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(-Math.sqrt(2), Math.sqrt(2) + Math.sqrt(2) / 2 + 1, 0);
+        this.scene.rotate(-Math.PI/4,0,0,1);
+        this.triangleBig.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0, -Math.sqrt(2) / 2, 0);
+        this.scene.rotate(Math.PI/4,0,0,1);
+        this.triangle.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(-1,-Math.sqrt(2) - Math.sqrt(2)/2,0);
+        this.scene.rotate(Math.PI,1,0,0);
+        this.parallelogram.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(-1,-Math.sqrt(2) - Math.sqrt(2)/2 - 1,0);
+        this.triangleSmall.display();
+        this.scene.popMatrix();
     }
 }
 
