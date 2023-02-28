@@ -52,3 +52,4 @@ export class MyUnitCube extends CGFobject {
 		this.initGLBuffers();
 	}
 }
+

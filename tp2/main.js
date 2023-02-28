@@ -2,7 +2,6 @@
 import {CGFapplication} from '../lib/CGF.js';
 import { MyScene } from './MyScene.js';
 import { MyInterface } from './MyInterface.js';
-import { MyUnitQuad } from './MyQuad.js';
 
 function main()
 {
