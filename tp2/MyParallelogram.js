@@ -23,7 +23,7 @@ export class MyParallelogram extends CGFobject {
 			0, 1, 2,
 			2, 1, 3,
 			3, 1, 2,
-			2, 1, 0
+			2, 1, 0,
 		];
 
 		//The defined indices (and corresponding vertices)

@@ -93,8 +93,8 @@ export class MyScene extends CGFscene {
 
     // ---- BEGIN Primitive drawing section
 
-    //this.tangram.display();
-    this.cube.display();
+    this.tangram.display();
+    //this.cube.display();
 
     // ---- END Primitive drawing section
   }
