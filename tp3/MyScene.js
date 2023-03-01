@@ -43,6 +43,7 @@ export class MyScene extends CGFscene {
         this.displayNormals = false;
         this.objectComplexity = 0.5;
         this.scaleFactor = 2.0;
+        this.ambientLight = 0.3;
 
     }
     initLights() {
@@ -101,6 +102,9 @@ export class MyScene extends CGFscene {
         this.objects[this.selectedObject].updateBuffers(this.objectComplexity);
     }
 
+    updateGlobalAmbientLight(){
+        this.setGlobalAmbientLight(this.ambientLight, this.ambientLight, this.ambientLight, 1.0);
+    }
 
     initMaterials() {
         // Red Ambient (no diffuse, no specular)
@@ -166,6 +170,7 @@ export class MyScene extends CGFscene {
 
         this.pushMatrix();
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
+        this.updateGlobalAmbientLight();
         
         if (this.displayNormals)
             this.objects[this.selectedObject].enableNormalViz();
