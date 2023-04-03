@@ -42,7 +42,7 @@ export class MyScene extends CGFscene {
         this.objects = [this.plane, this.pyramid, this.cone,this.tangram, this.cube, this.prism, this.cilinder];
 
         // Labels and ID's for object selection on MyInterface
-        this.objectIDs = { 'Plane': 0 , 'Pyramid': 1, 'Cone': 2, 'Tangram': 3, 'Cube': 4, 'Prism': 5, 'Cilinder': 6};
+        this.objectIDs = {'Plane': 0 , 'Pyramid': 1, 'Cone': 2, 'Tangram': 3, 'Cube': 4, 'Prism': 5, 'Cilinder': 6};
 
         //Other variables connected to MyInterface
         this.selectedObject = 0;
