@@ -15,6 +15,7 @@ export class MyUnitCubeQuad extends CGFobject {
         this.quad4 = new MyQuad(scene);
         this.quad5 = new MyQuad(scene);
         this.quzad6 = new MyQuad(scene);
+        // passar as texturas
 	}
 
     display() {
