@@ -5,11 +5,12 @@ import {CGFobject} from '../../lib/CGF.js';
  * @param scene - Reference to MyScene object
  */
 export class MySphere extends CGFobject {
-	constructor(scene, slices, stacks) {
+	constructor(scene, slices, stacks, pov = true) {
 		super(scene);
 		this.stacks = stacks;
 		this.slices = slices;
-		this.radius = stacks/2;
+		this.radius = 1;
+		this.pov = pov;
 		this.initBuffers();
 	}
 	
@@ -41,10 +42,18 @@ export class MySphere extends CGFobject {
 				nx = x / this.radius;
 				ny = y / this.radius;
 				nz = z / this.radius;
-				this.normals.push(nx, ny, nz);
+				if(!this.pov){
+					this.normals.push(-nx, -ny, -nz);
+				}
+				else {
+					this.normals.push(nx, ny, nz);
+				}
 
 				s = 1 - j / this.slices;
 				t = i / this.stacks;
+				if (!this.pov){
+					s = 1 - s;
+				}
 				this.texCoords.push(s, t);
 			}
 		}
