@@ -1,8 +1,7 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
 import { MyPlane } from "./MyPlane.js";
-import { MySphere } from "./MySphere.js";
-//import { MyBird } from "./MyBird.js";
 import { MyPanorama } from "./MyPanorama.js";
+import { MyBird } from "./MyBird.js";
 
 /**
  * MyScene
@@ -28,7 +27,8 @@ export class MyScene extends CGFscene {
 
     //Initialize scene objects
     this.axis = new CGFaxis(this);
-    this.plane = new MyPlane(this,30);
+    this.plane = new MyPlane(this, 30);
+    this.bird = new MyBird(this, 5, 5, 5);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -84,6 +84,11 @@ export class MyScene extends CGFscene {
     // ---- BEGIN Primitive drawing section
 
     this.pushMatrix();
+    this.bird.display();
+    this.popMatrix();
+
+    /*
+    this.pushMatrix();
     this.appearance.setTexture(this.texture);
     this.appearance.apply();
     this.translate(0,-100,0);
@@ -94,7 +99,7 @@ export class MyScene extends CGFscene {
     
 
     this.panorama.display();
-
+    */
     // ---- END Primitive drawing section
   }
 }
