@@ -7,17 +7,17 @@ export class MyWing extends CGFobject {
     constructor(scene){
         super(scene);
 
-        this.triangle = new MyTriangle(this.scene);
-        this.parallelogram = new MyParallelogram(this.scene);
+        this.scene.triangle = new MyTriangle(this.scene,2);
+        this.scene.parallelogram = new MyParallelogram(this.scene);
     }
 
     display() {
         this.scene.pushMatrix();
-        this.triangle.display();
+        this.scene.triangle.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.parallelogram.display();
+        this.scene.parallelogram.display();
         this.scene.popMatrix();
 
     }

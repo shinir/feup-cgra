@@ -87,7 +87,7 @@ export class MyScene extends CGFscene {
     this.bird.display();
     this.popMatrix();
 
-    /*
+    
     this.pushMatrix();
     this.appearance.setTexture(this.texture);
     this.appearance.apply();
@@ -99,7 +99,7 @@ export class MyScene extends CGFscene {
     
 
     this.panorama.display();
-    */
+    
     // ---- END Primitive drawing section
   }
 }
