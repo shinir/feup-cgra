@@ -1,7 +1,9 @@
 import { CGFobject } from "../lib/CGF.js";
 import { MySphere } from "./MySphere.js";
 import { MyCone } from "./MyCone.js";
-import { MyWing } from "./MyWing.js";
+import { MyLeftWing } from "./MyLeftWing.js";
+import { MyRightWing } from "./MyRightWing.js";
+import { MyClaw } from "./MyClaw.js";
 
 /**
  * MyBird
@@ -14,18 +16,18 @@ import { MyWing } from "./MyWing.js";
 export class MyBird extends CGFobject {
 	constructor(scene) {
 		super(scene);
-		this.x = x;
-		this.y = y;
-		this.z = z;
+		this.scene = scene;
 
 		this.head = new MySphere(this.scene, 20, 10, true);
 		this.bic = new MyCone(this.scene,10, 10);
-		this.wing = new MyWing(this.scene);
+		this.lwing = new MyLeftWing(this.scene);
+		this.rwing = new MyRightWing(this.scene);
+		this.claw = new MyClaw(this.scene);
+		
 
 	}
 
 	display() {
-
 		this.scene.pushMatrix();
 		this.scene.scale(1.25,1,1);
 		this.head.display();
@@ -57,9 +59,33 @@ export class MyBird extends CGFobject {
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
-		this.scene.translate(10,10,10);
-		this.wing.display();
+		this.scene.rotate(Math.PI / 4, 1,0,0);
+		this.scene.translate(0,0,-1.5);
+		this.lwing.display();
 		this.scene.popMatrix();
 
+		this.scene.pushMatrix();
+		this.scene.rotate(-Math.PI / 4, 1,0,0);
+		this.scene.translate(0,0,0.5);
+		this.rwing.display();
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+		this.scene.rotate(Math.PI / 4, 0,0,1);
+		this.scene.translate(-0.5,1,0);
+		this.scene.scale(0.2,0.5,0.3);
+		this.bic.display();
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+		this.scene.translate(0,-0.9,0.3);
+		this.claw.display();
+		this.scene.popMatrix();
+		
+		this.scene.pushMatrix();
+		this.scene.translate(0,-0.9,-0.3);
+		this.claw.display();
+		this.scene.popMatrix();
+		
 	}
 }

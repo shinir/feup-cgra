@@ -84,10 +84,10 @@ export class MyScene extends CGFscene {
     // ---- BEGIN Primitive drawing section
 
     this.pushMatrix();
+    this.scale(0.5,0.5,0.5);
     this.bird.display();
     this.popMatrix();
 
-    
     this.pushMatrix();
     this.appearance.setTexture(this.texture);
     this.appearance.apply();
