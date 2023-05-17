@@ -14,9 +14,14 @@ import { MyClaw } from "./MyClaw.js";
  * @param z
  */
 export class MyBird extends CGFobject {
-	constructor(scene) {
+	constructor(scene, or, vel, posx, posy, posz) {
 		super(scene);
 		this.scene = scene;
+		this.orientation = or;
+		this.velocity = vel;
+		this.X = posx;
+		this.Y = posy;
+		this.Z = posz;
 
 		this.height = 0;
 
@@ -68,11 +73,45 @@ export class MyBird extends CGFobject {
 
 		this.rwing.update(t);
 		this.lwing.update(t);
+
+		this.X += this.velocity * Math.cos(-this.orientation) * this.scene.speedFactor;
+		//this.Y += this.velocity * Math.sin(this.orientation);
+		this.Z += this.velocity * Math.sin(-this.orientation) * this.scene.speedFactor;
+	}
+
+	turn(v) {
+		if (v > 0){
+			this.orientation += 0.1 * this.scene.speedFactor;
+		}
+		else if (v < 0) {
+				this.orientation -= 0.1 * this.scene.speedFactor;
+			}
+	}
+
+	accelerate(v) {
+		if (v > 0 && this.velocity < 5) {
+			this.velocity += 0.05 * this.scene.speedFactor;
+		}
+		else if (v < 0 && this.velocity > -5) {
+				this.velocity -= 0.05 * this.scene.speedFactor;
+			}
+	}
+
+	reset() {
+		this.orientation = 0;
+		this.velocity = 0;
+		this.X = 0;
+		this.Y = 3;
+		this.Z = 0;
 	}
 
 	display() {
 		this.birdMaterial.setTexture(this.birdTexture);
 		this.birdMaterial.apply();
+
+		this.scene.pushMatrix();
+		this.scene.translate(this.X,this.Y,this.Z);
+		this.scene.rotate(this.orientation,0,1,0);
 
 		this.scene.pushMatrix();
 		this.scene.translate(0,this.height,0,1);
@@ -149,6 +188,7 @@ export class MyBird extends CGFobject {
 		this.claw.display();
 		this.scene.popMatrix();
 
+		this.scene.popMatrix();
 		this.scene.popMatrix();
 	}
 }

@@ -15,7 +15,7 @@ export class MyLeftWing extends CGFobject {
 		this.amplitude = Math.PI / 4;
 		this.maxheight = 0.5;
 
-		this.ang = Math.sin(2 * Math.PI * t / 1000) * this.amplitude;
+		this.ang = Math.sin(2 * Math.PI * t * this.scene.speedFactor / 1000) * this.amplitude;
 		this.height = Math.sin(this.ang) * this.maxheight;
 	}
 
