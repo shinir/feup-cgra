@@ -18,12 +18,14 @@ export class MyBird extends CGFobject {
 		super(scene);
 		this.scene = scene;
 
+		this.height = 0;
+
 		this.head = new MySphere(this.scene, 20, 10, true);
 		this.beak = new MyCone(this.scene,10, 10);
 		this.lwing = new MyLeftWing(this.scene);
 		this.rwing = new MyRightWing(this.scene);
 		this.claw = new MyClaw(this.scene);
-		
+
 		this.birdMaterial = new CGFappearance(this.scene);
 		this.birdMaterial.setColor(1, 1, 1, 1);
 		this.birdMaterial.setAmbient(1, 0.5, 0.5, 1);
@@ -57,10 +59,23 @@ export class MyBird extends CGFobject {
 		this.beakMaterial.setTexture(this.beakTexture);
 	}
 
+	update(t) {
+		this.amplitude = Math.PI / 2;
+		this.maxheight = 0.5;
+
+		this.ang = Math.sin(2 * Math.PI * t / 1000) * this.amplitude;
+		this.height = Math.sin(this.ang) * this.maxheight;
+
+		this.rwing.update(t);
+		this.lwing.update(t);
+	}
+
 	display() {
 		this.birdMaterial.setTexture(this.birdTexture);
 		this.birdMaterial.apply();
 
+		this.scene.pushMatrix();
+		this.scene.translate(0,this.height,0,1);
 		// body
 
 		this.scene.pushMatrix();
@@ -78,16 +93,13 @@ export class MyBird extends CGFobject {
 
 		// Left Wing
 		this.scene.pushMatrix();
-		this.scene.rotate(Math.PI / 4, 1,0,0);
-		this.scene.translate(0,0,-1.5);
 		this.birdMaterial.apply();
 		this.lwing.display();
 		this.scene.popMatrix();
 
 		// Right Wing
 		this.scene.pushMatrix();
-		this.scene.rotate(-Math.PI / 4, 1,0,0);
-		this.scene.translate(0,0,0.5);
+		this.scene.rotate(Math.PI, 1,0,0);
 		this.birdMaterial.apply();
 		this.rwing.display();
 		this.scene.popMatrix();
@@ -135,6 +147,8 @@ export class MyBird extends CGFobject {
 		this.scene.translate(0,-0.9,-0.3);
 		this.claws.apply();
 		this.claw.display();
+		this.scene.popMatrix();
+
 		this.scene.popMatrix();
 	}
 }
