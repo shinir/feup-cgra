@@ -25,10 +25,12 @@ export class MyScene extends CGFscene {
     this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
 
+    this.setUpdatePeriod(20);
+
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.plane = new MyPlane(this, 30);
-    this.bird = new MyBird(this);
+    this.bird = new MyBird(this,0,0,0,3,0);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -44,6 +46,9 @@ export class MyScene extends CGFscene {
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
     this.panorama = new MyPanorama(this, this.panoramaTexture);
+
+    this.scaleFactor = 1;
+		this.speedFactor = 1;
 
   }
   initLights() {
@@ -67,6 +72,50 @@ export class MyScene extends CGFscene {
     this.setSpecular(0.2, 0.4, 0.8, 1.0);
     this.setShininess(10.0);
   }
+
+  checkKeys() {
+    var text = "Keys pressed: ";
+    var KeysPressed = false;
+
+    if (this.gui.isKeyPressed("KeyW")) {
+      text += " W ";
+      KeysPressed = true;
+      this.bird.accelerate(1);
+    }
+
+    if (this.gui.isKeyPressed("KeyS")) {
+      text += " S ";
+      KeysPressed = true;
+      this.bird.accelerate(-1);
+    }
+
+    if (this.gui.isKeyPressed("KeyA")) {
+      text += " A ";
+      KeysPressed = true;
+      this.bird.turn(1);
+    }
+
+    if (this.gui.isKeyPressed("KeyD")) {
+      text += " D ";
+      KeysPressed = true;
+      this.bird.turn(-1);
+    }
+
+    if (this.gui.isKeyPressed("KeyR")) {
+      text += " R ";
+      KeysPressed = true;
+      this.bird.reset();
+    }
+
+    if (KeysPressed)
+      console.log(text);
+  }
+
+  update(t){
+    this.bird.update(t);
+    this.checkKeys();
+  }
+
   display() {
     // ---- BEGIN Background, camera and axis setup
     // Clear image and depth buffer everytime we update the scene
@@ -84,7 +133,7 @@ export class MyScene extends CGFscene {
     // ---- BEGIN Primitive drawing section
 
     this.pushMatrix();
-    this.scale(0.5,0.5,0.5);
+    this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
     this.bird.display();
     this.popMatrix();
 

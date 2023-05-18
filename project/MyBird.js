@@ -14,16 +14,23 @@ import { MyClaw } from "./MyClaw.js";
  * @param z
  */
 export class MyBird extends CGFobject {
-	constructor(scene) {
+	constructor(scene, or, vel, posx, posy, posz) {
 		super(scene);
 		this.scene = scene;
+		this.orientation = or;
+		this.velocity = vel;
+		this.X = posx;
+		this.Y = posy;
+		this.Z = posz;
+
+		this.height = 0;
 
 		this.head = new MySphere(this.scene, 20, 10, true);
 		this.beak = new MyCone(this.scene,10, 10);
 		this.lwing = new MyLeftWing(this.scene);
 		this.rwing = new MyRightWing(this.scene);
 		this.claw = new MyClaw(this.scene);
-		
+
 		this.birdMaterial = new CGFappearance(this.scene);
 		this.birdMaterial.setColor(1, 1, 1, 1);
 		this.birdMaterial.setAmbient(1, 0.5, 0.5, 1);
@@ -57,10 +64,57 @@ export class MyBird extends CGFobject {
 		this.beakMaterial.setTexture(this.beakTexture);
 	}
 
+	update(t) {
+		this.amplitude = Math.PI / 2;
+		this.maxheight = 0.5;
+
+		this.ang = Math.sin(2 * Math.PI * t / 1000) * this.amplitude;
+		this.height = Math.sin(this.ang) * this.maxheight;
+
+		this.rwing.update(t);
+		this.lwing.update(t);
+
+		this.X += this.velocity * Math.cos(-this.orientation) * this.scene.speedFactor;
+		//this.Y += this.velocity * Math.sin(this.orientation);
+		this.Z += this.velocity * Math.sin(-this.orientation) * this.scene.speedFactor;
+	}
+
+	turn(v) {
+		if (v > 0){
+			this.orientation += 0.1 * this.scene.speedFactor;
+		}
+		else if (v < 0) {
+				this.orientation -= 0.1 * this.scene.speedFactor;
+			}
+	}
+
+	accelerate(v) {
+		if (v > 0 && this.velocity < 5) {
+			this.velocity += 0.05 * this.scene.speedFactor;
+		}
+		else if (v < 0 && this.velocity > -5) {
+				this.velocity -= 0.05 * this.scene.speedFactor;
+			}
+	}
+
+	reset() {
+		this.orientation = 0;
+		this.velocity = 0;
+		this.X = 0;
+		this.Y = 3;
+		this.Z = 0;
+	}
+
 	display() {
 		this.birdMaterial.setTexture(this.birdTexture);
 		this.birdMaterial.apply();
 
+		this.scene.pushMatrix();
+		this.scene.translate(this.X,this.Y,this.Z);
+		this.scene.rotate(this.orientation,0,1,0);
+
+		this.scene.pushMatrix();
+		this.scene.translate(0,this.height,0,1);
 		// body
 
 		this.scene.pushMatrix();
@@ -78,16 +132,13 @@ export class MyBird extends CGFobject {
 
 		// Left Wing
 		this.scene.pushMatrix();
-		this.scene.rotate(Math.PI / 4, 1,0,0);
-		this.scene.translate(0,0,-1.5);
 		this.birdMaterial.apply();
 		this.lwing.display();
 		this.scene.popMatrix();
 
 		// Right Wing
 		this.scene.pushMatrix();
-		this.scene.rotate(-Math.PI / 4, 1,0,0);
-		this.scene.translate(0,0,0.5);
+		this.scene.rotate(Math.PI, 1,0,0);
 		this.birdMaterial.apply();
 		this.rwing.display();
 		this.scene.popMatrix();
@@ -135,6 +186,9 @@ export class MyBird extends CGFobject {
 		this.scene.translate(0,-0.9,-0.3);
 		this.claws.apply();
 		this.claw.display();
+		this.scene.popMatrix();
+
+		this.scene.popMatrix();
 		this.scene.popMatrix();
 	}
 }
