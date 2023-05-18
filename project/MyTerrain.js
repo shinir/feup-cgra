@@ -20,7 +20,7 @@ export class MyTerrain extends CGFobject {
         this.mountainMaterial.setTexture(this.mountainTexture);
         this.mountainMaterial.setTextureWrap('REPEAT', 'REPEAT');
     
-        this.mountainHeightmap = new CGFtexture(this.scene, "images/heightmap.jpg");
+        this.mountainHeightmap = new CGFtexture(this.scene, "images/newheightmap.jpg");
         this.mountainGradient = new CGFtexture(this.scene, "images/altimetry.png");
 
         this.mountainShader = new CGFshader(this.scene.gl, "shaders/mountain.vert", "shaders/mountain.frag");
@@ -41,7 +41,7 @@ export class MyTerrain extends CGFobject {
             // ---- display
             this.mountainMaterial.apply();
             this.scene.rotate(-0.5*Math.PI, 1, 0, 0);
-            this.scene.translate(0, -8, -50);
+            this.scene.translate(0, 0, -50);
             this.scene.scale(400, 400, 16);
             this.plane.display();
             
