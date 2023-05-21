@@ -18,6 +18,7 @@ export class MyBird extends CGFobject {
 		super(scene);
 		this.scene = scene;
 		this.orientation = or;
+		this.up_down = 0;
 		this.velocity = vel;
 		this.X = posx;
 		this.Y = posy;
@@ -75,8 +76,26 @@ export class MyBird extends CGFobject {
 		this.lwing.update(t);
 
 		this.X += this.velocity * Math.cos(-this.orientation) * this.scene.speedFactor;
-		//this.Y += this.velocity * Math.sin(this.orientation);
 		this.Z += this.velocity * Math.sin(-this.orientation) * this.scene.speedFactor;
+		if ((this.up_down < 0 && this.Y > 2.5) || (this.up_down > 0 && this.Y <5)){
+			this.Y += this.up_down / 6;
+		}
+		else if(this.up_down == -1){
+			if(this.X < 23 && this.X > 17 && this.Z < 23 && this.Z > 17 && this.scene.birdwithegg[0] == 0){
+				this.scene.birdwithegg = [1,0];
+			}
+			else if(this.X > -23 && this.X < -17 && this.Z < 23 && this.Z > 17 && this.scene.birdwithegg[0] == 0){
+				this.scene.birdwithegg = [1,1];
+			}
+			else if(this.X < 23 && this.X > 17 && this.Z > -23 && this.Z < -17 && this.scene.birdwithegg[0] == 0){
+				this.scene.birdwithegg = [1,2];
+			}
+			else if(this.X > -23 && this.X < -17 && this.Z > -23 && this.Z < -17 && this.scene.birdwithegg[0] == 0){
+				this.scene.birdwithegg = [1,3];
+			}
+
+			this.up_down = 1;
+		}
 	}
 
 	turn(v) {
@@ -101,7 +120,7 @@ export class MyBird extends CGFobject {
 		this.orientation = 0;
 		this.velocity = 0;
 		this.X = 0;
-		this.Y = 3;
+		this.Y = 5;
 		this.Z = 0;
 	}
 

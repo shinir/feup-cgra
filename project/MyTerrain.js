@@ -41,7 +41,7 @@ export class MyTerrain extends CGFobject {
             // ---- display
             this.mountainMaterial.apply();
             this.scene.rotate(-0.5*Math.PI, 1, 0, 0);
-            this.scene.translate(0, 0, -50);
+            this.scene.translate(0, 0, -36.5); // at -36.5 on z the flat surface is at level 0
             this.scene.scale(400, 400, 16);
             this.plane.display();
             

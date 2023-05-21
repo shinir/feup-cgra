@@ -37,7 +37,8 @@ export class MySphere extends CGFobject {
 
 				x = xz * Math.cos(angleSlice);
 				z = xz * Math.sin(angleSlice);
-				this.vertices.push(x, y, z);
+				this.vertices.push(x, y, z)
+
 			
 				nx = x / this.radius;
 				ny = y / this.radius;

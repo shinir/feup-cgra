@@ -3,6 +3,8 @@ import { MyPlane } from "./MyPlane.js";
 import { MyPanorama } from "./MyPanorama.js";
 import { MyBird } from "./MyBird.js";
 import {MyTerrain} from "./MyTerrain.js"
+import { MyBirdEgg } from "./MyBirdEgg.js";
+import { MyNest } from "./MyNest.js";
 
 /**
  * MyScene
@@ -14,6 +16,10 @@ export class MyScene extends CGFscene {
   }
   init(application) {
     super.init(application);
+
+    this.eggsinnest = 0;
+    this.birdwithegg = [0,-1];
+    this.eggdrop = -1;
     
     this.initCameras();
     this.initLights();
@@ -31,8 +37,10 @@ export class MyScene extends CGFscene {
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.plane = new MyPlane(this, 30);
-    this.bird = new MyBird(this,0,0,0,3,0);
+    this.bird = new MyBird(this,0,0,0,5,0);
     this.terrain = new MyTerrain(this);
+    this.egg = new MyBirdEgg(this,10,10,true);
+    this.nest = new MyNest(this,10,10,true);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -46,7 +54,28 @@ export class MyScene extends CGFscene {
     this.appearance = new CGFappearance(this);
     this.appearance.setTexture(this.texture);
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+    
+    this.eggTexture = new CGFtexture(this, 'images/egg_texture.jpg');
+    this.eggAppearance = new CGFappearance(this);
+    this.eggAppearance.setTexture(this.eggTexture);
+    
+    this.eggs = [];
+    for (let i = 0; i < 4; i++) {
+      const egg = new MyBirdEgg(this, 10, 10, true);
+      this.eggs.push(egg);
+    }
 
+    this.eggPositions = [
+      { x: 20, y: 1, z: 20 },
+      { x: -20, y: 1, z: 20 },
+      { x: 20, y: 1, z: -20 },
+      { x: -20, y: 1, z: -20 }
+    ];
+
+    this.nestTexture = new CGFtexture(this, 'images/nest_texture.jpg');
+    this.nestAppearance = new CGFappearance(this);
+    this.nestAppearance.setTexture(this.nestTexture);
+    
     this.panorama = new MyPanorama(this, this.panoramaTexture);
 
     this.scaleFactor = 1;
@@ -103,6 +132,23 @@ export class MyScene extends CGFscene {
       this.bird.turn(-1);
     }
 
+    if (this.gui.isKeyPressed("KeyP")) {
+      text += " P ";
+      KeysPressed = true;
+      const v = this.bird.velocity;
+      this.bird.velocity = 0;
+      this.bird.up_down = -1;
+    }
+
+    if (this.gui.isKeyPressed("KeyO")) {
+      text += " O ";
+      KeysPressed = true;
+      if (this.birdwithegg[0] == 1 && this.bird.X < 3 && this.bird.X > -3 && this.bird.Z < 3 && this.bird.Z > -3){
+        this.eggdrop = this.birdwithegg[1];
+        this.birdwithegg = [0,0];
+      }
+    }
+
     if (this.gui.isKeyPressed("KeyR")) {
       text += " R ";
       KeysPressed = true;
@@ -115,6 +161,23 @@ export class MyScene extends CGFscene {
 
   update(t){
     this.bird.update(t);
+    if (this.birdwithegg[0] == 1){
+      this.eggPositions[this.birdwithegg[1]].x = this.bird.X;
+      this.eggPositions[this.birdwithegg[1]].z = this.bird.Z;
+      this.eggPositions[this.birdwithegg[1]].y = this.bird.Y - 2;
+
+    }
+    if (this.eggdrop >= 0) {
+      if (this.eggPositions[this.eggdrop].y > 1) {
+        this.eggPositions[this.eggdrop].y -= 1 / 6;
+      }
+      else if (this.eggPositions[this.eggdrop].y <= 1){
+        this.eggsinnest += 1;
+        this.eggPositions[this.eggdrop].y = -100;
+        this.eggdrop = -1;
+      }
+
+    }
     this.checkKeys();
   }
 
@@ -142,6 +205,65 @@ export class MyScene extends CGFscene {
     this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
     this.bird.display();
     this.popMatrix();
+    
+    this.pushMatrix();
+    this.scale(3,2,3);
+    this.translate(0,1,0);
+    this.nestAppearance.apply();
+    this.nest.display();
+    this.popMatrix();
+    
+    if (this.eggsinnest > 0) {
+      this.pushMatrix();
+      this.scale(0.5,0.5,0.5);
+      this.translate(0,1,0);
+      this.eggAppearance.apply();
+      this.egg.display();
+      this.popMatrix();
+
+      if (this.eggsinnest > 1) {
+        this.pushMatrix();
+        this.scale(0.5,0.5,0.5);
+        this.translate(-2,2,0);
+        this.rotate(Math.PI / 6,0,0,1);
+        this.eggAppearance.apply();
+        this.egg.display();
+        this.popMatrix();
+
+        if (this.eggsinnest > 2) {
+          this.pushMatrix();
+          this.rotate(- Math.PI / 2,0,0,1);
+          this.scale(0.5,0.5,0.5);
+          this.translate(-2,2,0);
+          this.rotate(Math.PI / 6,0,0,1);
+          this.eggAppearance.apply();
+          this.egg.display();
+          this.popMatrix();
+
+          if (this.eggsinnest == 4) {
+            this.pushMatrix();
+            this.rotate(Math.PI /2 , 0,1,0);
+            this.rotate(- Math.PI / 2,0,0,1);
+            this.scale(0.5,0.5,0.5);
+            this.translate(-2,2,0);
+            this.rotate(Math.PI / 6,0,0,1);
+            this.eggAppearance.apply();
+            this.egg.display();
+            this.popMatrix();
+          }
+        }
+      }
+    }
+
+    for (let i = 0; i < 4; i++) {
+      this.pushMatrix();
+      this.translate(this.eggPositions[i].x,this.eggPositions[i].y,this.eggPositions[i].z);
+      this.scale(0.5,0.5,0.5);
+      this.rotate(Math.PI/2,0,0,1);
+      this.eggAppearance.apply();
+      this.eggs[i].display();
+      this.popMatrix();
+    }
 
     this.pushMatrix();
     this.appearance.setTexture(this.texture);
