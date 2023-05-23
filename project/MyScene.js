@@ -2,9 +2,10 @@ import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } fr
 import { MyPlane } from "./MyPlane.js";
 import { MyPanorama } from "./MyPanorama.js";
 import { MyBird } from "./MyBird.js";
-import {MyTerrain} from "./MyTerrain.js"
+import { MyTerrain } from "./MyTerrain.js";
 import { MyBirdEgg } from "./MyBirdEgg.js";
 import { MyNest } from "./MyNest.js";
+//import { MyTree } from "./MyTree.js";
 
 /**
  * MyScene
@@ -41,6 +42,7 @@ export class MyScene extends CGFscene {
     this.terrain = new MyTerrain(this);
     this.egg = new MyBirdEgg(this,10,10,true);
     this.nest = new MyNest(this,10,10,true);
+    //this.tree = new MyTree(this,20,10);
 
     //Objects connected to MyInterface
     this.displayAxis = true;
@@ -196,6 +198,13 @@ export class MyScene extends CGFscene {
     if (this.displayAxis) this.axis.display();
 
     // ---- BEGIN Primitive drawing section
+
+    /*
+    this.pushMatrix();
+    //this.translate(10, 10, 0);
+    this.tree.display();
+    this.popMatrix();
+    */
 
     this.pushMatrix();
     this.terrain.display();
