@@ -1,8 +1,7 @@
-/*
 import { CGFobject, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyCilinder } from "./MyCilinder.js";
 
-class MyTree extends CGFobject {
+export class MyTree extends CGFobject {
     constructor(scene, height, radius) {
         super(scene);
 
@@ -22,12 +21,11 @@ class MyTree extends CGFobject {
     }
 
     display() {
-        this.treeMaterial.setTexture(this.tree);
-        this.treeMaterial.apply();
+        this.treeMaterial.setTexture(this.treeTexture);
 
         this.scene.pushMatrix();
+        this.treeMaterial.apply();
         this.tree.display();
         this.scene.popMatrix();
     }
 }
-*/
