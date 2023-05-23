@@ -27,10 +27,10 @@
 
 ## Screenshots
 
-- [Screenshot 1](/screenshots/project-t09g10-1.png)
-- [Screenshot 2](/screenshots/project-t09g10-2.png)
-- [Screenshot 3](/screenshots/project-t09g10-3.png)
-- [Screenshot 4](/screenshots/project-t09g10-4.png)
+- [Screenshot 1](project/screenshots/project-t09g10-1.png)
+- [Screenshot 2](project/screenshots/project-t09g10-2.png)
+- [Screenshot 3](project/screenshots/project-t09g10-3.png)
+- [Screenshot 4](project/screenshots/project-t09g10-4.png)
 
 ## Final Video
 
