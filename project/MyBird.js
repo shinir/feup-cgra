@@ -77,6 +77,7 @@ export class MyBird extends CGFobject {
 
 		this.X += this.velocity * Math.cos(-this.orientation) * this.scene.speedFactor;
 		this.Z += this.velocity * Math.sin(-this.orientation) * this.scene.speedFactor;
+		
 		if ((this.up_down < 0 && this.Y > 2.5) || (this.up_down > 0 && this.Y <5)){
 			this.Y += this.up_down / 6;
 		}
