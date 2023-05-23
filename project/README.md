@@ -27,10 +27,14 @@
 
 ## Screenshots
 
-- [Screenshot 1](project/screenshots/project-t09g10-1.png)
-- [Screenshot 2](project/screenshots/project-t09g10-2.png)
-- [Screenshot 3](project/screenshots/project-t09g10-3.png)
-- [Screenshot 4](project/screenshots/project-t09g10-4.png)
+![Screenshot 1](project/screenshots/project-t09g10-1.png)
+<p>Screenshot 1: Panorama</p>
+![Screenshot 2](project/screenshots/project-t09g10-2.png)
+<p>Screenshot 2: Ave</p>
+![Screenshot 3](project/screenshots/project-t09g10-3.png)
+<p>Screenshot 3: Terreno</p>
+![Screenshot 4](project/screenshots/project-t09g10-4.png)
+<p>Screenshot 4: Ovos e Ninho</p>
 
 ## Final Video
 
