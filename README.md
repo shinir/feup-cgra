@@ -15,4 +15,4 @@
   - [x] [tp3](tp3/README.md)
   - [x] [tp4](tp4/README.md)
   - [x] [tp5](tp5/README.md)
-  - [ ] [Project](proj/README.md)
+  - [x] [Project](proj/README.md)
